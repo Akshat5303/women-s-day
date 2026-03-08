@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>You're a Star! ⭐</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --gold: #ffd700; --purple: #4a148c; --white: #ffffff; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            margin: 0; background: radial-gradient(circle, #1a237e, #000000);
+            font-family: 'Poppins', sans-serif; height: 100vh;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+
+        /* The Initial Star */
+        #star-trigger {
+            font-size: 5rem; cursor: pointer;
+            filter: drop-shadow(0 0 20px var(--gold));
+            animation: pulse-glow 2s infinite ease-in-out;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px var(--gold)); }
+            50% { transform: scale(1.2); filter: drop-shadow(0 0 40px var(--gold)); }
+        }
+
+        /* The Hidden Premium Card */
+        .premium-card {
+            position: absolute; width: 85%; max-width: 350px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px); border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 25px; text-align: center;
+            opacity: 0; transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .premium-card.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+        h2 { color: var(--gold); font-size: 1.8rem; margin-bottom: 15px; }
+        p { color: #e0e0e0; line-height: 1.6; font-size: 1.05rem; }
+        
+        .trait-pill {
+            display: inline-block; padding: 8px 15px; margin: 5px;
+            background: rgba(255, 215, 0, 0.2); border: 1px solid var(--gold);
+            border-radius: 50px; color: var(--gold); font-size: 0.8rem;
+        }
+
+        .instruction {
+            position: fixed; bottom: 40px; color: white;
+            font-size: 0.9rem; letter-spacing: 1px; opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="star-trigger" onclick="revealCelebration()">⭐</div>
+
+    <div class="premium-card" id="card">
+        <h2>Happy Women's Day!</h2>
+        <p>Aaj ka din tere jaise <b>Iconic</b> logon ke liye hai. Teri dosti aur teri Respect mere liye sabse badi achievement hai. ✨</p>
+        <div style="margin-top: 20px;">
+            <span class="trait-pill">Strength 💪</span>
+            <span class="trait-pill">Respect 🛡️</span>
+            <span class="trait-pill">Care ❤️</span>
+        </div>
+        <p style="margin-top: 25px; font-size: 0.9rem; font-style: italic;">"Keep shining, keep inspiring."</p>
+    </div>
+
+    <div class="instruction" id="hint">TAP THE STAR TO UNLOCK SURPRISE</div>
+
+<script>
+    function revealCelebration() {
+        const star = document.getElementById('star-trigger');
+        const card = document.getElementById('card');
+        const hint = document.getElementById('hint');
+
+        // Hide star and hint
+        star.style.display = 'none';
+        hint.style.display = 'none';
+
+        // Show card
+        card.classList.add('active');
+
+        // Haptic Feedback
+        if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
+
+        // Major Confetti Blast
+        var duration = 3 * 1000;
+        var end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#ffd700', '#ffffff']
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#ffd700', '#ffffff']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+
+        // Final central burst
+        setTimeout(() => {
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ffd700', '#ffffff', '#4a148c']
+            });
+        }, 500);
+    }
+</script>
+
+</body>
+</html>
