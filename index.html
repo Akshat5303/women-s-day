@@ -50,8 +50,15 @@
         }
 
         .instruction {
-            position: fixed; bottom: 40px; color: white;
-            font-size: 0.9rem; letter-spacing: 1px; opacity: 0.7;
+            position: fixed; bottom: 60px; color: white;
+            font-size: 0.8rem; letter-spacing: 1px; opacity: 0.7;
+        }
+
+        /* Akshat's Branding Footer */
+        .footer {
+            position: fixed; bottom: 20px; width: 100%; text-align: center;
+            color: rgba(255, 255, 255, 0.4); font-size: 0.75rem;
+            letter-spacing: 2px; font-weight: 300; text-transform: uppercase;
         }
     </style>
 </head>
@@ -71,6 +78,8 @@
     </div>
 
     <div class="instruction" id="hint">TAP THE STAR TO UNLOCK SURPRISE</div>
+    
+    <div class="footer">Developed by Akshat</div>
 
 <script>
     function revealCelebration() {
@@ -78,17 +87,12 @@
         const card = document.getElementById('card');
         const hint = document.getElementById('hint');
 
-        // Hide star and hint
         star.style.display = 'none';
         hint.style.display = 'none';
-
-        // Show card
         card.classList.add('active');
 
-        // Haptic Feedback
         if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
 
-        // Major Confetti Blast
         var duration = 3 * 1000;
         var end = Date.now() + duration;
 
@@ -113,7 +117,6 @@
             }
         }());
 
-        // Final central burst
         setTimeout(() => {
             confetti({
                 particleCount: 150,
